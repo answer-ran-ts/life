@@ -1,10 +1,14 @@
 <template>
 	<view>
-		<view class="test" @click="goDetail">
-			跳转到测试页
+		<view class="test">
+			<button class="button" type="primary" @click="goDetail">跳转到测试页</button>
 		</view>
-		<view class="test" @click="getRes">
-			接口测试
+		<view class="test">
+			<button class="button" type="primary" @click="getRes">获取数据</button>
+			<view class="test" v-for="(item,index) in menu" :key="index">
+				<view>{{index + 1}}-{{item}}</view>
+			</view>
+			<button class="button" type="primary"></button>
 		</view>
 		<uni-card is-full>
 			<text class="uni-h6">标签组件多用于商品分类、重点内容显示等场景。</text>
@@ -63,6 +67,7 @@
 		data() {
 			return {
 				items: ['选项卡1', '选项卡2', '选项卡3'],
+				menu: [],
 				styles: [{
 						value: 'button',
 						text: '按钮',
@@ -112,7 +117,8 @@
 					name: 'zhangshan',
 					age: 12
 				}
-				this.$req.getMenu(params).then(res=>{
+				this.$req.getMenu(params).then(res => {
+					this.menu = res.menuList
 					console.log(res);
 				})
 			}
@@ -120,6 +126,9 @@
 	}
 </script>
 <style lang="scss">
+	.test{
+		margin-top: 10px;
+	}
 	.example-body {
 		/* #ifndef APP-NVUE */
 		display: flex;
